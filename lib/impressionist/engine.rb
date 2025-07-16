@@ -1,17 +1,20 @@
+# lib/impressionist/engine.rb
+require 'rails'
+
 module Impressionist
   class Engine < ::Rails::Engine
     attr_accessor :orm
 
-    initializer 'impressionist.model' do |_app|
+    initializer 'impressionist.model' do
       @orm = Impressionist.orm
       include_orm
     end
 
     initializer 'impressionist.controller' do
-      require "impressionist/controllers/mongoid/impressionist_controller.rb" if orm == 'mongoid'
+      require "#{root}/app/controllers/impressionist_controller.rb"
 
       ActiveSupport.on_load(:action_controller) do
-        include ::ImpressionistController
+        include ImpressionistController
       end
     end
 
@@ -24,3 +27,4 @@ module Impressionist
     end
   end
 end
+
