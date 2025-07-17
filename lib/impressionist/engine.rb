@@ -11,8 +11,8 @@ module Impressionist
     end
 
     initializer 'impressionist.controller' do
-      # ⬇ force eager loading of the controller module before referencing it
-      require_relative '../../app/controllers/impressionist_controller'
+      # Manually require the controller from within the gem
+      require File.expand_path('../../../app/controllers/impressionist_controller.rb', __FILE__)
 
       ActiveSupport.on_load(:action_controller) do
         include ::ImpressionistController
@@ -28,4 +28,3 @@ module Impressionist
     end
   end
 end
-
