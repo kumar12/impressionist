@@ -11,10 +11,11 @@ module Impressionist
     end
 
     initializer 'impressionist.controller' do
-      require "#{root}/app/controllers/impressionist_controller.rb"
+      # ⬇ force eager loading of the controller module before referencing it
+      require_relative '../../app/controllers/impressionist_controller'
 
       ActiveSupport.on_load(:action_controller) do
-        include ImpressionistController
+        include ::ImpressionistController
       end
     end
 
